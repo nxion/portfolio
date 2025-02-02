@@ -1,12 +1,12 @@
 {
-  "description": "I'm a UI/UX student studying at Barnett Technical University. I enjoy creating unique and simplistic user interfaces in creative ways.",
+  "description": "I'm a seasoned IT professional with over 20 years of experience in many differant rolls.",
   "skills": [
-    "Web design",
     "User experience",
-    "Inclusive design",
-    "Focus group testing",
-    "Mobile user interfaces",
-    "Graphic design"
+    "Various programming/scripting languages",
+    "Datacenter operations",
+    "Cloud computing",
+    "Networking",
+    "Security"
   ],
-  "detailOrQuote": "I am passionate about solving problems in new creative ways to drive innovation. By leveraging my UI/UX experience I continually look for new and better ways to make tech accessible by all."
+  "detailOrQuote": "I have a passion for technology and a love for learning. I am always looking for new and better ways to solve problems, drive innovation and teach someone how to better themselves."
 }
