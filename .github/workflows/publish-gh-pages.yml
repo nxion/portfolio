@@ -28,26 +28,6 @@ jobs:
       with:
         dotnet-version: '8.x'
 
-    # - name: Set basepath on index.html
-    #   shell: pwsh
-    #   run: |
-    #     $filepath = "./src/BlazorApp/wwwroot/index.html"
-    #     $repository = "${{ github.repository }}" -replace "${{ github.repository_owner }}", ""
-
-    #     $html = Get-Content -Path $filepath
-    #     $html -replace "<base href=`"/`" />", "<base href=`"$repository/`" />" | Out-File -Path $filepath -Force
-
-    # - name: Set basepath on JSON objects
-    #   shell: pwsh
-    #   run: |
-    #     $filepath = "./src/BlazorApp/wwwroot/sample-data"
-    #     $repository = "${{ github.repository }}" -replace "${{ github.repository_owner }}", ""
-
-    #     Get-ChildItem -Path $filepath -Filter "*.json" | ForEach-Object {
-    #       $json = Get-Content -Path $_.FullName
-    #       $json.Replace("../", "$repository/") | Out-File -Path $_.FullName -Force
-    #     }
-
     - name: Restore NuGet packages
       shell: bash
       run: |
@@ -68,8 +48,17 @@ jobs:
       run: |
         dotnet publish src/BlazorApp -c Release -o published
 
-    - name: Upload artifact for web
-      uses: actions/upload-pages-artifact@v1
+    # Using actions/upload-artifact first to store the build output
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: blazor-site
+        path: published/wwwroot
+        retention-days: 1
+
+    # Then using upload-pages-artifact to prepare for Pages deployment
+    - name: Upload pages artifact
+      uses: actions/upload-pages-artifact@v3
       with:
         path: published/wwwroot
 
@@ -87,4 +76,4 @@ jobs:
     steps:
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v1
+      uses: actions/deploy-pages@v4
